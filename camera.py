@@ -4,8 +4,8 @@ import cv2
 cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 capture = cv2.VideoCapture(0)
-ignore, image = capture.read()
 
 while True:
+    ignore, image = capture.read()
     cv2.imshow('image', image)
     cv2.waitKey(30) & 0xff
