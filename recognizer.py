@@ -29,6 +29,16 @@ for file_name in os.listdir(validation_dataset):
         if True in results:
             match = train_names[results.index(True)]
             print(match, file_name)
+            top_left = (face_location[3], face_location[0])
+            bottom_right = (face_location[1], face_location[2])
+            color = [0, 255, 255]
+            cv2.rectangle(img, top_left, bottom_right, color, 3)
+
+            top_left = (face_location[3], face_location[2])
+            bottom_right = (face_location[1], face_location[2] + 22)
+            cv2.rectangle(img, top_left, bottom_right, color, cv2.FILLED)
+            cv2.putText(img, match, (face_location[3] + 10, face_location[2] + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                        (200, 200, 200), 2)
 
     cv2.imshow(file_name, img)
     cv2.waitKey(0)
