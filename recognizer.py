@@ -5,7 +5,7 @@ import face_recognition
 
 training_dataset, validation_dataset = "train", "valid"
 
-training_rate = 0.6
+learning_rate = 0.6
 model = "hog"
 
 train_faces, train_names = [], []
@@ -24,8 +24,12 @@ for file_name in os.listdir(validation_dataset):
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     for face_encoding, face_location in zip(encoded_, identifier):
-        results = face_recognition.compare_faces(train_faces, face_encoding, training_rate)
+        results = face_recognition.compare_faces(train_faces, face_encoding, learning_rate)
         match = None
         if True in results:
             match = train_names[results.index(True)]
             print(match, file_name)
+
+    cv2.imshow(file_name, img)
+    cv2.waitKey(0)
+    cv2.destroyWindow(file_name)
