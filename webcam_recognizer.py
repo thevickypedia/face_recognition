@@ -14,15 +14,15 @@ model = "hog"  # model using which the images are matched
 train_faces, train_names = [], []
 
 for character_dir in os.listdir(training_dataset):  # loads the training dataset
-    for file_name in os.listdir(f'{training_dataset}/{character_dir}'):
-        # loads all the files within the named repo
-        img = face_recognition.load_image_file(f'{training_dataset}/{character_dir}/{file_name}')
-        try:
+    try:
+        for file_name in os.listdir(f'{training_dataset}/{character_dir}'):
+            # loads all the files within the named repo
+            img = face_recognition.load_image_file(f'{training_dataset}/{character_dir}/{file_name}')
             encoded = face_recognition.face_encodings(img)[0]  # generates face encoding matrix
             train_faces.append(encoded)
             train_names.append(character_dir)
-        except IndexError:
-            pass
+    except (IndexError, NotADirectoryError):
+        pass
 
 while True:
     ret, img = validation_video.read()
